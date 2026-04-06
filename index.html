@@ -27,7 +27,7 @@
             width: 400px;
             max-width: 90%;
         }
-        h1 { color: #333; font-size: 22px; }
+        h1 { color: #333; font-size: 22px; margin-bottom: 20px; }
         button {
             background-color: #ffc0cb;
             color: white;
@@ -51,33 +51,33 @@
         <h1>Ось твій особистий песик:</h1>
         
         <button onclick="
-            window.SP_PIN.fireEvent('c0954e75-3228-4976-9d4a-9615c63a069c', {
-                'testing-ref-text-on-pixel': 'value',
-                'testing-ref-integer-on-pixel': 123
-            });
+            if(window.SP_PIN) {
+                window.SP_PIN.fireEvent('c0954e75-3228-4976-9d4a-9615c63a069c', {
+                    'testing-ref-text-on-pixel': 'value',
+                    'testing-ref-integer-on-pixel': 123
+                });
+            }
             getDoggy();
         ">Викликаю песика 🐾</button>
 
         <div id="dog-container">
-           <p style="color: #999;">Настикай, підміни собі настрій!</p>
+           <p style="color: #999;">Натискай, підніми собі настрій!</p>
         </div>
     </div>
 
     <script>
         async function getDoggy() {
-            if (window.pulsepix) {
-                console.log("PulsePix активується...");
-            }
-
             const container = document.getElementById('dog-container');
             container.innerHTML = '<p>Шукаємо песика...</p>';
             
             try {
                 const response = await fetch('https://dog.ceo/api/breeds/image/random');
+                if (!response.ok) throw new Error('Network error');
                 const data = await response.json();
                 container.innerHTML = `<img src="${data.message}" alt="Песик">`;
             } catch (error) {
-                container.innerHTML = '<p>Помилка завантаження. Спробуй ще раз!</p>';
+                container.innerHTML = '<p style="color: red;">Мережа барахлить. Спробуй ще раз!</p>';
+                console.error(error);
             }
         }
     </script>
