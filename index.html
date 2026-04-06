@@ -49,12 +49,13 @@
 
     <div class="card">
         <h1>Ось твій особистий песик:</h1>
-       <button onclick="
-    /* 1. Твій скрипт PulsePix */
-    window.SP_PIN.fireEvent('55fa40bb-2f08-4abb-971b-17daacb1673e', {
-        'test-pixel-ref-text': 'value',
-        'test-pixel-ref-integer': 123
-    });
+    <button onclick="window.SP_PIN.fireEvent(
+  'c0954e75-3228-4976-9d4a-9615c63a069c',
+  {
+     testing-ref-text-on-pixel: 'value',
+     testing-ref-integer-on-pixel: 123
+  }
+)">Buy</button>
     
     /* 2. Функція виклику песика */
     getDoggy();
