@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мій милий сайт</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f8ff;
+        }
+        h1 { color: #ff69b4; }
+        button {
+            padding: 15px 30px;
+            font-size: 18px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            transition: 0.3s;
+        }
+        button:hover { background-color: #45a049; transform: scale(1.05); }
+        #dog-container { margin-top: 20px; min-height: 300px; }
+        img { max-width: 400px; border-radius: 15px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body>
+
+    <h1>Генератор гарного настрою 🐶</h1>
+    <button onclick="getDoggy()">Хочу песика!</button>
+
+    <div id="dog-container">
+        </div>
+
+    <script>
+        async function getDoggy() {
+            const container = document.getElementById('dog-container');
+            container.innerHTML = '<p>Шукаю наймилішого песика...</p>';
+            
+            try {
+                // Викликаємо безкоштовне API (повертає випадкове фото/гіфку собачки)
+                const response = await fetch('https://dog.ceo/api/breeds/image/random');
+                const data = await response.json();
+                
+                container.innerHTML = `<img src="${data.message}" alt="Песик">`;
+            } catch (error) {
+                container.innerHTML = '<p>Ой! Песики десь заховалися. Спробуй ще раз!</p>';
+            }
+        }
+    </script>
+
+</body>
+</html>
