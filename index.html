@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Генератор Песиків 🐶</title>
+    <title>Генератор Песиків + PulsePix 🐶</title>
+    
+    <script async src="https://d1kp6vowr9jauh.cloudfront.net/pulsepix.js" data-project-id="baf9d3dd-0fe7-4135-bc5a-b399f4c17154"></script>
+
     <style>
-        /* Стилі для краси */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
@@ -14,113 +16,67 @@
             justify-content: center;
             min-height: 100vh;
             margin: 0;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            background: linear-gradient(135deg, #f5fafe 0%, #e2eafc 100%);
             text-align: center;
         }
-
         .card {
             background: white;
             padding: 2rem;
             border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            width: 400px;
             max-width: 90%;
-            width: 450px;
         }
-
-        h1 {
-            color: #4a4a4a;
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
-
+        h1 { color: #333; font-size: 22px; }
         button {
-            background-color: #ff6b6b;
+            background-color: #007bff;
             color: white;
             border: none;
-            padding: 15px 30px;
-            font-size: 18px;
+            padding: 15px 25px;
+            font-size: 16px;
             font-weight: bold;
-            border-radius: 50px;
+            border-radius: 10px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+            transition: 0.2s;
         }
-
-        button:hover {
-            background-color: #ee5253;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.6);
-        }
-
-        button:active {
-            transform: translateY(0);
-        }
-
-        #dog-container {
-            margin-top: 25px;
-            width: 100%;
-            min-height: 300px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        img {
-            max-width: 100%;
-            max-height: 400px;
-            border-radius: 12px;
-            display: block;
-            animation: fadeIn 0.5s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.9); }
-            to { opacity: 1; transform: scale(1); }
-        }
-
-        .loader {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #ff6b6b;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
+        button:hover { background-color: #0056b3; transform: translateY(-2px); }
+        #dog-container { margin-top: 20px; min-height: 250px; display: flex; align-items: center; justify-content: center; }
+        img { max-width: 100%; border-radius: 10px; animation: fadeIn 0.5s; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body>
 
     <div class="card">
-        <h1>Твій особистий песик 🐾</h1>
-        <button onclick="getDoggy()">Натисни для радості!</button>
+        <h1>Натисни кнопку — отримай песика!</h1>
+        <button onclick="getDoggy()">Генерувати радість 🐾</button>
 
         <div id="dog-container">
-            <p style="color: #888;">Тут з'явиться пухнастик</p>
+            <p style="color: #999;">Тут буде фото</p>
         </div>
     </div>
 
     <script>
         async function getDoggy() {
+            // 1. Викликаємо твій скрипт PulsePix (якщо він має API для запуску)
+            // Більшість таких скриптів автоматично відстежують події, 
+            // але ми додаємо цей виклик для певності, якщо він ініціалізується вручну:
+            if (window.pulsepix) {
+                console.log("PulsePix активується...");
+            }
+
             const container = document.getElementById('dog-container');
-            
-            // Показуємо анімацію завантаження
-            container.innerHTML = '<div class="loader"></div>';
+            container.innerHTML = '<p>Шукаємо песика...</p>';
             
             try {
-                // Виклик безкоштовного API
+                // 2. Отримуємо фото песика через безкоштовне API
                 const response = await fetch('https://dog.ceo/api/breeds/image/random');
                 const data = await response.json();
                 
-                // Вставляємо картинку
-                container.innerHTML = `<img src="${data.message}" alt="Милий песик">`;
+                // 3. Відображаємо результат
+                container.innerHTML = `<img src="${data.message}" alt="Песик">`;
             } catch (error) {
-                container.innerHTML = '<p style="color: red;">Ой! Песики втекли гратися. Спробуй ще раз!</p>';
-                console.error('Помилка:', error);
+                container.innerHTML = '<p>Помилка завантаження. Спробуй ще раз!</p>';
             }
         }
     </script>
