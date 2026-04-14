@@ -4,7 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Live Chat Test & Double Joy 🐶🌸</title>
-    <script async src="https://d1kp6vowr9jauh.cloudfront.net/pulsepix.js" data-project-id="bcebac40-1d45-4751-b5b7-d001d7482d65"></script>
+    
+    <script async src="https://d1kp6vowr9jauh.cloudfront.net/pulsepix.js" data-project-id="e65649b7-bfc2-4cb0-b1c3-803e6425eb20"></script>
     
     <style>
         body {
@@ -12,9 +13,6 @@
             text-align: center;
             padding: 50px;
             background-color: #f9f9f9;
-        }
-        h1 {
-            color: #333;
         }
         .main-container {
             display: flex;
@@ -78,7 +76,7 @@
         }
         #dailyMessage {
             margin-bottom: 20px;
-            font-style: italic;
+            font-size: 1.2em;
             color: #555;
         }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
@@ -95,7 +93,7 @@
             
             <button class="action-button dog" onclick="
                 if(window.SP_PIN) {
-                    window.SP_PIN.fireEvent('86267d37-faaa-4b1f-81f3-5c4a8d39b2c7', {
+                    window.SP_PIN.fireEvent('883c1dc0-1aae-496d-a669-edc806e63fe2', {
                         somevalue: 'value'
                     });
                 }
@@ -137,7 +135,8 @@
         "You can achieve anything today! Слава Україні!",
       ];
       const randomMessage = messages[Math.floor(Math.random() * messages.length)];
-      document.getElementById("dailyMessage").textContent = randomMessage;
+      const msgElem = document.getElementById("dailyMessage");
+      if(msgElem) msgElem.textContent = randomMessage;
 
       // Функція для песиків
       async function getDoggy() {
@@ -145,11 +144,10 @@
           container.innerHTML = '<p>Шукаємо песика...</p>';
           try {
               const response = await fetch('https://dog.ceo/api/breeds/image/random');
-              if (!response.ok) throw new Error('Network error');
               const data = await response.json();
-              container.innerHTML = `<img src='${data.message}' alt='Песик'>`;
+              container.innerHTML = `<img src="${data.message}" alt="Песик">`;
           } catch (error) {
-              container.innerHTML = '<p style="color: red;">Мережа барахлить. Спробуй ще раз!</p>';
+              container.innerHTML = '<p style="color: red;">Помилка завантаження.</p>';
           }
       }
 
@@ -159,11 +157,10 @@
           container.innerHTML = '<p>Ищем самую няшную...</p>';
           try {
               const response = await fetch('https://api.waifu.pics/sfw/neko');
-              if (!response.ok) throw new Error('Network error');
               const data = await response.json();
-              container.innerHTML = `<img src='${data.url}' alt='Аниме девочка'>`;
+              container.innerHTML = `<img src="${data.url}" alt="Аниме девочка">`;
           } catch (error) {
-              container.innerHTML = '<p style="color: red;">Помилка завантаження. Спробуй ще раз!</p>';
+              container.innerHTML = '<p style="color: red;">Помилка завантаження.</p>';
           }
       }
     </script>
